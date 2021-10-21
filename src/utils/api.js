@@ -35,3 +35,14 @@ axios.interceptors.response.use(
     return;
   }
 );
+
+const baseUrl = "";
+
+//post请求
+export const postRequest = (url, params) => {
+  return axios({
+    method: "post",
+    url: `${baseUrl}${url}`,
+    data: params,
+  });
+};

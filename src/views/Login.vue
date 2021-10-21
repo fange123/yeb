@@ -8,9 +8,9 @@
         <el-form-item prop='password'>
           <el-input type='password' v-model='loginForm.password' placeholder='请输入密码' autocomplete="false"></el-input>
         </el-form-item>
-        <el-form-item prop='code'>
+        <el-form-item prop='code' >
           <el-input  v-model='loginForm.code' placeholder='点击图片更换验证码' autocomplete="false" type='text' style="width:250px;margin-right:5px"></el-input>
-        <img :src="captchaUrl" alt="">
+        <img :src="captchaUrl" alt="" @click='updateCaptcha' class="code_img">
 
 
         </el-form-item>
@@ -22,6 +22,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { Message } from 'element-ui';
+import router from '../router';
 export default {
   name:'Login',
   data(){
@@ -45,27 +48,55 @@ export default {
             { required: true, message: '请输入验证码', trigger: 'change' }
           ],
 
-
         }
 
     }
   },
+  mounted(){
+    axios.get('/api/captcha').then(res => { // 获取数据
+        this.captchaUrl = res.data
+      })
+
+  },
   methods:{
-    submitLogin(){
+    updateCaptcha(){
+      axios.get('/api/captcha').then(res => { // 获取数据
+        this.captchaUrl = res.data
+      })
+
+    }
+    ,submitLogin(){
       this.$refs.loginForm.validate((valid) => {
-          if (valid) {
-            this.$message.success('success')
-          } else {
+          if (!valid) {
             this.$message.error('请填写所有字段')
             return false;
           }
-        });
-    }
+
+          axios({
+            url:'/api/login',// 指定json类型',
+            method:'post',
+            data:{username:this.loginForm.username,password:this.loginForm.password},
+            headers:{
+              'Content-Type':'application/json' // 指定json类型
+            }
+          }).then(res => { // 获取数据
+                 if(res.data){
+                   //登录成功
+                   router.push('/welcome')
+                   Message.success({message:'登录成功'})
+                 }else{
+                  Message.error({message:'用户名或密码错误'})
+
+                 }
+             })
+           });
+    },
   },
 
     components: {
 
     },
+
 };
 </script>
 
@@ -87,5 +118,15 @@ export default {
 .login_remember {
   margin: 0 5px 20px 0;
 }
+
+.code_img {
+  cursor: pointer;
+  width: 94px;
+}
+.el-form-item__content {
+  display: flex;
+  align-items: center;
+}
+
 
 </style>
