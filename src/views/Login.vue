@@ -25,6 +25,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui';
 import router from '../router';
+import { postRequest } from '../utils/api';
 export default {
   name:'Login',
   data(){
@@ -64,30 +65,22 @@ export default {
         this.captchaUrl = res.data
       })
 
-    }
-    ,submitLogin(){
+    },
+    submitLogin(){
       this.$refs.loginForm.validate((valid) => {
           if (!valid) {
             this.$message.error('请填写所有字段')
             return false;
           }
 
-          axios({
-            url:'/api/login',// 指定json类型',
-            method:'post',
-            data:{username:this.loginForm.username,password:this.loginForm.password},
-            headers:{
-              'Content-Type':'application/json' // 指定json类型
-            }
-          }).then(res => { // 获取数据
+          postRequest('/api/login',{
+            username:this.loginForm.username,password:this.loginForm.password},
+          ).then(res => { // 获取数据
                  if(res.data){
                    //登录成功
                    router.push('/welcome')
-                   Message.success({message:'登录成功'})
-                 }else{
-                  Message.error({message:'用户名或密码错误'})
-
                  }
+             }).catch(()=>{
              })
            });
     },

@@ -2,6 +2,7 @@ import axios from "axios";
 import { Message } from "element-ui";
 import router from "../router";
 
+//+axios响应拦截器
 axios.interceptors.response.use(
   (success) => {
     //业务逻辑错误
@@ -44,5 +45,8 @@ export const postRequest = (url, params) => {
     method: "post",
     url: `${baseUrl}${url}`,
     data: params,
+    headers: {
+      "Content-Type": "application/json", // 指定json类型
+    },
   });
 };

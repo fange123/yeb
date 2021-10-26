@@ -4,7 +4,10 @@ import img from "./assets/code.png";
 
 //获取验证码
 const getCaptcha = function() {
-  return img;
+  return {
+    code: 200,
+    data: img,
+  };
 };
 
 //登录
@@ -13,9 +16,20 @@ const login = function(params) {
   let isLogin = false;
   if (username === "admin" && password === "123") {
     isLogin = true;
-    return isLogin;
+    return {
+      data: {
+        isLogin,
+      },
+      code: 200,
+      success: true,
+      message: "登录成功",
+    };
   }
-  return isLogin;
+  return {
+    code: 403,
+    success: false,
+    message: "用户名活密码错误",
+  };
 };
 
 // 请求该url，就可以返回内容
