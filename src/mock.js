@@ -18,7 +18,7 @@ const login = function(params) {
     isLogin = true;
     return {
       data: {
-        isLogin,
+        token: "张大宝好帅",
       },
       code: 200,
       success: true,

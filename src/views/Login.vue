@@ -1,6 +1,14 @@
 <template>
     <div>
-      <el-form ref='loginForm' :model='loginForm' class="login_container" :rules="rules">
+      <el-form
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+        ref='loginForm'
+        :model='loginForm'
+        class="login_container"
+        :rules="rules"
+      >
         <h3 class="login_title">系统登录</h3>
         <el-form-item prop='username'>
           <el-input type='text'  v-model='loginForm.username' placeholder='请输入用户名' autocomplete="false"></el-input>
@@ -23,9 +31,7 @@
 
 <script>
 import axios from 'axios'
-import { Message } from 'element-ui';
 import router from '../router';
-import { postRequest } from '../utils/api';
 export default {
   name:'Login',
   data(){
@@ -36,6 +42,7 @@ export default {
         password:'123',
         code:''
       },
+      loading:false,
       checked:true,
       rules: {
           username: [
@@ -68,17 +75,20 @@ export default {
     },
     submitLogin(){
       this.$refs.loginForm.validate((valid) => {
+        this.loading = true
           if (!valid) {
             this.$message.error('请填写所有字段')
             return false;
           }
 
-          postRequest('/api/login',{
+          this.postRequest('/api/login',{
             username:this.loginForm.username,password:this.loginForm.password},
           ).then(res => { // 获取数据
                  if(res.data){
                    //登录成功
-                   router.push('/welcome')
+                   sessionStorage.setItem('token',res.data.token)
+                   router.replace('/welcome')
+                   this.loading = false
                  }
              }).catch(()=>{
              })
