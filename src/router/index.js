@@ -1,9 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/Login.vue";
-import Welcome from "../views/Welcome.vue";
-import Test1 from "../views/Test1.vue";
-import Test2 from "../views/Test2.vue";
 
 Vue.use(VueRouter);
 

@@ -75,13 +75,12 @@ export default {
     },
     submitLogin(){
       this.$refs.loginForm.validate((valid) => {
-        this.loading = true
           if (!valid) {
             this.$message.error('请填写所有字段')
             return false;
-          }
-
-          this.postRequest('/api/login',{
+          }else {
+        this.loading = true
+         this.postRequest('/api/login',{
             username:this.loginForm.username,password:this.loginForm.password},
           ).then(res => { // 获取数据
                  if(res.data){
@@ -93,6 +92,10 @@ export default {
              }).catch(()=>{
                this.loading = false
              })
+
+          }
+
+
            });
     },
   },
