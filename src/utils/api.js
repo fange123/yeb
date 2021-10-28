@@ -26,9 +26,9 @@ axios.interceptors.response.use(
         Message.error({ message: success.data.message });
         return;
       }
-      if (success.data.message) {
-        Message.success({ message: success.data.message });
-      }
+      // if (success.data.message) {
+      //   Message.success({ message: success.data.message });
+      // }
     }
     return success.data;
   },

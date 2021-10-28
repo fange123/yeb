@@ -31,7 +31,170 @@ const login = function(params) {
     message: "用户名活密码错误",
   };
 };
+//获取菜单
+const getMenu = function() {
+  return {
+    data: {
+      routes: [
+        {
+          path: "/welcome",
+          name: "员工资料",
+          component: "Welcome",
+          iconCls: "el-icon-s-home",
+          children: [
+            {
+              path: "/emp/adv",
+              name: "高级资料",
+              component: "EmpAdv",
+            },
+            {
+              path: "/emp/basic",
+              name: "基本资料",
+              component: "EmpBasic",
+            },
+          ],
+        },
+        {
+          path: "/welcome",
+          name: "员工管理",
+          component: "Welcome",
+          iconCls: "el-icon-s-management",
+          children: [
+            {
+              path: "/per/ec",
+              name: "员工奖惩",
+              component: "PerEc",
+            },
+            {
+              path: "/per/emp",
+              name: "员工资料",
+              component: "PerEmp",
+            },
+            {
+              path: "/per/mv",
+              name: "员工调动",
+              component: "PerMv",
+            },
+            {
+              path: "/per/salary",
+              name: "员工调薪",
+              component: "PerSalary",
+            },
+            {
+              path: "/per/train",
+              name: "员工培训",
+              component: "PerTrain",
+            },
+          ],
+        },
+        {
+          path: "/welcome",
+          name: "薪资管理",
+          component: "Welcome",
+          iconCls: "el-icon-sugar",
+          children: [
+            {
+              path: "/sal/month",
+              name: "月末处理",
+              component: "SalMonth",
+            },
+            {
+              path: "/sal/search",
+              name: "工资查询",
+              component: "SalSearch",
+            },
+            {
+              path: "/sal/sob",
+              name: "工资帐套管理",
+              component: "SalSob",
+            },
+            {
+              path: "/sal/sobCfg",
+              name: "员工帐套设置",
+              component: "SalSobCfg",
+            },
+            {
+              path: "/sal/table",
+              name: "工资表管理",
+              component: "SalTable",
+            },
+          ],
+        },
+        {
+          path: "/welcome",
+          name: "信息统计",
+          component: "Welcome",
+          iconCls: "el-icon-chat-line-round",
+          children: [
+            {
+              path: "/sta/all",
+              name: "综合信息统计",
+              component: "StaAll",
+            },
+            {
+              path: "/sta/pers",
+              name: "人事信息统计",
+              component: "StaPers",
+            },
+            {
+              path: "/sta/record",
+              name: "人事记录统计",
+              component: "StaRecord",
+            },
+            {
+              path: "/sta/store",
+              name: "员工积分统计",
+              component: "StaStore",
+            },
+          ],
+        },
+        {
+          path: "/welcome",
+          name: "系统管理",
+          component: "Welcome",
+          iconCls: "el-icon-setting",
+          children: [
+            {
+              path: "/sys/admin",
+              name: "操作员管理",
+              component: "SysAdmin",
+            },
+            {
+              path: "/sys/basic",
+              name: "基础信息设置",
+              component: "SysBasic",
+            },
+            {
+              path: "/sys/config",
+              name: "基础设置",
+              component: "SysConfig",
+            },
+            {
+              path: "/sys/data",
+              name: "备份获取数据库",
+              component: "SysData",
+            },
+            {
+              path: "/sys/init",
+              name: "初始化据库",
+              component: "SysInit",
+            },
+            {
+              path: "/sys/log",
+              name: "操作日志管理",
+              component: "SysLog",
+            },
+          ],
+        },
+      ],
+    },
+    code: 200,
+    success: true,
+    message: "操作成功",
+  };
+};
 
 // 请求该url，就可以返回内容
 Mock.mock("/api/captcha", getCaptcha);
 Mock.mock("/api/login", "post", login);
+Mock.mock("/api/menu", getMenu);

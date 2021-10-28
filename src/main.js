@@ -9,7 +9,8 @@ import {
   putRequest,
   deleteRequest,
 } from "./utils/api";
-
+import store from "./store";
+import { initMenu } from "./utils/menus";
 require("./mock.js");
 
 Vue.use(ElementUI);
@@ -19,7 +20,18 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
+
+router.beforeEach((_, __, next) => {
+  if (sessionStorage.getItem("token")) {
+    initMenu(router, store);
+    next();
+  } else {
+    next();
+  }
+});
+
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount("#app");
