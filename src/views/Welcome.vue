@@ -1,7 +1,7 @@
 <template>
     <el-container>
   <el-header class="home_header">
-    <div class="title">云E办</div>
+    <div class="title">logo</div>
     <el-dropdown class="user_info" @command="handleCommand">
       <span class="el-dropdown-link">
         {{user.name }}<i><img :src="user.imgUrl" alt=""></i>
@@ -24,6 +24,13 @@
         </el-menu>
     </el-aside>
     <el-main>
+          <el-breadcrumb separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path !== '/welcome'">
+          <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>{{this.$router.currentRoute.name}}</el-breadcrumb-item>
+        </el-breadcrumb>
+        <div class="welcome" v-if="this.$router.currentRoute.path === '/welcome'">
+          欢迎欢迎，热烈欢迎~~~
+        </div>
       <router-view/>
     </el-main>
   </el-container>
@@ -106,6 +113,8 @@ export default {
 }
 .home_header .title {
   font-size: 30px;
+  text-transform: uppercase;
+  font-weight: bolder;
   font-family:Arial, Helvetica, sans-serif;
   color: #ffffff;
 }
@@ -123,6 +132,12 @@ export default {
 .el-dropdown-link {
   display: flex;
   align-items: center;
+}
+.welcome {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 60px;
+  color: #70a1ff;
 }
 
 </style>

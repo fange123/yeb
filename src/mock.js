@@ -1,7 +1,7 @@
 // 引入mockjs
 const Mock = require("mockjs");
 import imgCode from "./assets/code.png";
-import imgPic from "./assets/girl.jpeg";
+import imgPic from "./assets/hair.jpeg";
 
 //获取验证码
 const getCaptcha = function() {
