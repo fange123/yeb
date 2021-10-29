@@ -21,7 +21,7 @@ Vue.prototype.getRequest = getRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 
-router.beforeEach((_, __, next) => {
+router.beforeEach((to, __, next) => {
   if (sessionStorage.getItem("token")) {
     initMenu(router, store);
 
@@ -38,7 +38,12 @@ router.beforeEach((_, __, next) => {
     }
     next();
   } else {
-    next();
+    if (to.path === "/") {
+      next();
+    } else {
+      //~没有登录直接输入url的情况
+      next("/?redirect/" + to.path);
+    }
   }
 });
 

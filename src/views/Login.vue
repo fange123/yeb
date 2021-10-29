@@ -31,7 +31,6 @@
 
 <script>
 import axios from 'axios'
-import router from '../router';
 export default {
   name:'Login',
   data(){
@@ -83,11 +82,16 @@ export default {
          this.postRequest('/api/login',{
             username:this.loginForm.username,password:this.loginForm.password},
           ).then(res => { // 获取数据
+                   this.loading = false
+
                  if(res.data){
                    //登录成功
                    sessionStorage.setItem('token',res.data.token)
-                   router.replace('/welcome')
-                   this.loading = false
+                  //页面跳转
+
+                  //TODO:path拿不到值，有问题，，下次需要看看
+                  let path =this.$route.query.redirect
+                   this.$router.replace((path === '/' || path === undefined) ? '/welcome':path)
                  }
              }).catch(()=>{
                this.loading = false
