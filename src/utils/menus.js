@@ -53,7 +53,5 @@ export const formatRouter = (routes) => {
     fmtRoutes.push(fmtRoute);
   });
 
-  //TODO:检查为啥路由为空fmtRoute
-
   return fmtRoutes;
 };

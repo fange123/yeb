@@ -24,6 +24,18 @@ Vue.prototype.deleteRequest = deleteRequest;
 router.beforeEach((_, __, next) => {
   if (sessionStorage.getItem("token")) {
     initMenu(router, store);
+
+    //!判断用户信息是否存在
+    if (!sessionStorage.getItem("user")) {
+      //~ return 一个请求，没搞懂为啥要return，但不return就拿不到值。。。
+      return getRequest("/api/admin/info").then((res) => {
+        if (res.data) {
+          //存入用户信息
+          sessionStorage.setItem("user", JSON.stringify(res.data));
+          next();
+        }
+      });
+    }
     next();
   } else {
     next();

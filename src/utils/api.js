@@ -26,9 +26,6 @@ axios.interceptors.response.use(
         Message.error({ message: success.data.message });
         return;
       }
-      // if (success.data.message) {
-      //   Message.success({ message: success.data.message });
-      // }
     }
     return success.data;
   },
@@ -36,7 +33,7 @@ axios.interceptors.response.use(
     if (error.response.code === 504 || error.response.code === 404) {
       Message.error({ message: "啊，要死了，服务器不知道去哪了" });
     } else if (error.response.code === 403) {
-      Message.error({ message: "权限不足，请找找大宝" });
+      Message.error({ message: "权限不足，请找张大宝" });
     } else if (error.response.code === 401) {
       Message.error({ message: "尚未登录，请登录" });
       router.replace("/");

@@ -1,12 +1,13 @@
 // 引入mockjs
 const Mock = require("mockjs");
-import img from "./assets/code.png";
+import imgCode from "./assets/code.png";
+import imgPic from "./assets/girl.jpeg";
 
 //获取验证码
 const getCaptcha = function() {
   return {
     code: 200,
-    data: img,
+    data: imgCode,
   };
 };
 
@@ -29,6 +30,15 @@ const login = function(params) {
     code: 403,
     success: false,
     message: "用户名活密码错误",
+  };
+};
+
+//登出
+const logout = function() {
+  return {
+    code: 200,
+    data: null,
+    message: "注销成功",
   };
 };
 //获取菜单
@@ -194,7 +204,26 @@ const getMenu = function() {
   };
 };
 
+//获取用户信息
+
+const getAdminInfo = function() {
+  return {
+    code: 200,
+    data: {
+      username: "张大宝",
+      userId: 1,
+      imgUrl: imgPic,
+      role: "admin",
+      name: "系统管理员",
+      address: "爱尔兰",
+      telephone: "12345612345",
+    },
+  };
+};
+
 // 请求该url，就可以返回内容
 Mock.mock("/api/captcha", getCaptcha);
 Mock.mock("/api/login", "post", login);
 Mock.mock("/api/menu", getMenu);
+Mock.mock("/api/admin/info", getAdminInfo);
+Mock.mock("/api/logout", "post", logout);
