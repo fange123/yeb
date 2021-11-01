@@ -42,7 +42,7 @@ router.beforeEach((to, __, next) => {
       next();
     } else {
       //~没有登录直接输入url的情况
-      next("/?redirect/" + to.path);
+      next("/?redirect=" + to.path);
     }
   }
 });

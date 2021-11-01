@@ -89,7 +89,6 @@ export default {
                    sessionStorage.setItem('token',res.data.token)
                   //页面跳转
 
-                  //TODO:path拿不到值，有问题，，下次需要看看
                   let path =this.$route.query.redirect
                    this.$router.replace((path === '/' || path === undefined) ? '/welcome':path)
                  }
