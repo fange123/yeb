@@ -37,6 +37,7 @@ router.beforeEach((to, __, next) => {
       });
     }
     next();
+    //TODO:这部分似乎有问题，会导致重定向错误，有时会报错
   } else {
     if (to.path === "/") {
       next();

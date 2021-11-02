@@ -31,7 +31,7 @@
         <div class="welcome" v-if="this.$router.currentRoute.path === '/welcome'">
           欢迎欢迎，热烈欢迎~~~
         </div>
-      <router-view/>
+      <router-view class="home_route_view"/>
     </el-main>
   </el-container>
 </el-container>
@@ -138,6 +138,9 @@ export default {
   font-size: 30px;
   margin-top: 60px;
   color: #70a1ff;
+}
+.home_route_view {
+  margin-top: 20px;
 }
 
 </style>

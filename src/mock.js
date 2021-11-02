@@ -3,6 +3,8 @@ const Mock = require("mockjs");
 import imgCode from "./assets/code.png";
 import imgPic from "./assets/hair.jpeg";
 
+import { addPos, getAllPos, deletePos } from "./mock/sys";
+
 //获取验证码
 const getCaptcha = function() {
   return {
@@ -66,7 +68,7 @@ const getMenu = function() {
         },
         {
           path: "/welcome",
-          name: "员工管理",
+          name: "人事管理",
           component: "Welcome",
           iconCls: "el-icon-s-management",
           children: [
@@ -132,7 +134,7 @@ const getMenu = function() {
         },
         {
           path: "/welcome",
-          name: "信息统计",
+          name: "统计管理",
           component: "Welcome",
           iconCls: "el-icon-chat-line-round",
           children: [
@@ -227,3 +229,9 @@ Mock.mock("/api/login", "post", login);
 Mock.mock("/api/menu", getMenu);
 Mock.mock("/api/admin/info", getAdminInfo);
 Mock.mock("/api/logout", "post", logout);
+
+//系统管理
+Mock.mock("/api/system/basic/pos", "post", addPos);
+Mock.mock("/api/system/basic/pos", getAllPos);
+
+Mock.mock("/api/system/basic/pos/delete", "post", deletePos);
