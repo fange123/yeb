@@ -3,7 +3,13 @@ const Mock = require("mockjs");
 import imgCode from "./assets/code.png";
 import imgPic from "./assets/hair.jpeg";
 
-import { addPos, getAllPos, deletePos, editPos } from "./mock/sys";
+import {
+  addPos,
+  getAllPos,
+  deletePos,
+  editPos,
+  deleteAllPos,
+} from "./mock/sys";
 
 //获取验证码
 const getCaptcha = function() {
@@ -236,3 +242,4 @@ Mock.mock("/api/system/basic/pos", getAllPos);
 
 Mock.mock("/api/system/basic/pos/delete", "post", deletePos);
 Mock.mock("/api/system/basic/pos/edit", "put", editPos);
+Mock.mock("/api/system/basic/pos/all/delete", "delete", deleteAllPos);

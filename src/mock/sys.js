@@ -71,6 +71,23 @@ const deletePos = function(params) {
     data: posData,
   };
 };
+//批量删除职位
+
+const deleteAllPos = function(params) {
+  let idArr = JSON.parse(params.body).idArr.map((item) => item.id);
+
+  //+根据勾选id批量删除
+  posData = posData
+    .map((item) => (idArr.includes(item.id) ? null : item))
+    .filter((item) => item !== null);
+  console.log(posData);
+  return {
+    code: 200,
+    success: true,
+    message: "批量删除成功",
+    data: posData,
+  };
+};
 
 //编辑单个职位
 
@@ -91,4 +108,4 @@ const editPos = function(params) {
   };
 };
 
-export { addPos, getAllPos, deletePos, editPos };
+export { addPos, getAllPos, deletePos, editPos, deleteAllPos };

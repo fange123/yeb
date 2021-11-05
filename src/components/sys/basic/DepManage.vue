@@ -18,6 +18,7 @@
         border
         size='small'
       :data="positions"
+      @selection-change="handleSelectionChange"
       style="width: 70%">
        <el-table-column
       type="selection"
@@ -65,6 +66,8 @@
           <el-button type="primary" @click="updateInfo" size='small'>确 定</el-button>
   </span>
 </el-dialog>
+ <el-button type="danger" size='small' style="
+ marginTop:10px" :disabled='this.multipleSelection.length === 0' @click='handleDeleteAll'>批量删除</el-button>
       </div>
 
 
@@ -87,7 +90,8 @@ export default {
           updatePos:{
             name:''
           },
-          currentId:''
+          currentId:'',
+          multipleSelection:[]
 
         };
     },
@@ -148,10 +152,25 @@ export default {
           })
 
         }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
+          console.log('已取消删除')
+        });
+      },
+      handleDeleteAll(){
+        this.$confirm('确定批量删除吗', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteRequest("/api/system/basic/pos/all/delete",{idArr:this.multipleSelection}).then(res=> {
+            if(res.success){
+              this.$message.success(res.message)
+              this.getPositions()
+
+            }
+          })
+
+        }).catch(() => {
+          console.log('已取消删除');
         });
       },
       addPositions(){
@@ -168,6 +187,9 @@ export default {
            this.$message.error('职位名称不能为空');
         }
       },
+       handleSelectionChange(val) {
+        this.multipleSelection = val;
+      }
 
 
     },
