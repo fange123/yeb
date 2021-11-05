@@ -72,4 +72,23 @@ const deletePos = function(params) {
   };
 };
 
-export { addPos, getAllPos, deletePos };
+//编辑单个职位
+
+const editPos = function(params) {
+  let editId = JSON.parse(params.body).id;
+  let name = JSON.parse(params.body).name;
+  posData = posData.map((item, index) => {
+    if (index === editId) {
+      return { ...item, name };
+    }
+    return item;
+  });
+
+  return {
+    code: 200,
+    success: true,
+    message: "编辑成功",
+  };
+};
+
+export { addPos, getAllPos, deletePos, editPos };

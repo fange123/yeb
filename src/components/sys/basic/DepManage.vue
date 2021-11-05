@@ -51,6 +51,20 @@
       </template></el-table-column>
 
     </el-table>
+    <el-dialog
+        title="编辑职位"
+        :visible.sync="dialogVisible"
+        width="30%"
+        >
+        <div>
+          <el-tag>职位名称</el-tag>
+          <el-input v-model="updatePos.name" class="input_position"></el-input>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dialogVisible = false" size='small'>取 消</el-button>
+          <el-button type="primary" @click="updateInfo" size='small'>确 定</el-button>
+  </span>
+</el-dialog>
       </div>
 
 
@@ -68,7 +82,12 @@ export default {
           pos:{
             name:'',
           },
-          positions: []
+          positions: [],
+          dialogVisible:false,
+          updatePos:{
+            name:''
+          },
+          currentId:''
 
         };
     },
@@ -94,7 +113,25 @@ export default {
           }
         })
       },
-      handleEdit(index,data){},
+      handleEdit(index,data){
+        this.dialogVisible = true
+        //!放置修改原数据
+        this.updatePos = Object.assign({},data)
+        this.currentId = index
+
+      },
+      updateInfo(){
+
+        this.putRequest('/api/system/basic/pos/edit',{
+          id:this.currentId,
+          name:this.updatePos.name
+        }).then((res)=> {
+          this.dialogVisible = false
+          this.$message.success(res.message)
+          this.getPositions()
+        })
+
+      },
       handleDelete(index){
         this.$confirm('此操作将永久删除该职位, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -147,6 +184,11 @@ export default {
 }
 .main {
   margin-top: 10px;
+}
+.input_position {
+  width: 300px;
+  margin-left: 20px;
+
 }
 
 </style>
