@@ -136,14 +136,13 @@ export default {
         })
 
       },
-      handleDelete(index){
+      handleDelete(_,data){
         this.$confirm('此操作将永久删除该职位, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          //TODO:由于是mock数据，所以索引做删除比较好，正常情况应该使用id
-          this.postRequest("/api/system/basic/pos/delete",{id:index}).then(res=> {
+          this.postRequest("/api/system/basic/pos/delete",{id:data.id}).then(res=> {
             if(res.success){
               this.$message.success(res.message)
               this.getPositions()

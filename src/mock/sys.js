@@ -37,7 +37,7 @@ let name, id;
 
 const addPos = function(params) {
   name = JSON.parse(params.body).name;
-  id = JSON.parse(params.body).number + 1;
+  id = posData[posData.length - 1].id + 1;
   posData = [
     ...posData,
     { name, id, createData: moment().format("YYYY-MM-DD"), enable: true },
@@ -63,7 +63,9 @@ const getAllPos = function() {
 
 const deletePos = function(params) {
   let deleteId = JSON.parse(params.body).id;
-  posData.splice(deleteId, 1);
+  posData = posData
+    .map((item) => (item.id !== deleteId ? item : null))
+    .filter((i) => i !== null);
   return {
     code: 200,
     success: true,
