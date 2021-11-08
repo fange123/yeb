@@ -9,6 +9,11 @@ import {
   deletePos,
   editPos,
   deleteAllPos,
+  getJobLevels,
+  addJobLevels,
+  deleteJobLevel,
+  editJobLevel,
+  deleteJobLevels,
 } from "./mock/sys";
 
 //获取验证码
@@ -239,7 +244,12 @@ Mock.mock("/api/logout", "post", logout);
 //系统管理
 Mock.mock("/api/system/basic/pos", "post", addPos);
 Mock.mock("/api/system/basic/pos", getAllPos);
-
 Mock.mock("/api/system/basic/pos/delete", "post", deletePos);
 Mock.mock("/api/system/basic/pos/edit", "put", editPos);
 Mock.mock("/api/system/basic/pos/all/delete", "delete", deleteAllPos);
+
+Mock.mock("/api/system/basic/jobLevels", "post", addJobLevels);
+Mock.mock("/api/system/basic/jobLevels", getJobLevels);
+Mock.mock("/api/system/basic/jobLevels/delete", "post", deleteJobLevel);
+Mock.mock("/api/system/basic/jobLevels/edit", "put", editJobLevel);
+Mock.mock("/api/system/basic/jobLevels/all/delete", "post", deleteJobLevels);

@@ -1,4 +1,6 @@
 import moment from "moment";
+
+//TODO:职位管理
 //添加职位
 
 let posData = [
@@ -94,8 +96,8 @@ const deleteAllPos = function(params) {
 const editPos = function(params) {
   let editId = JSON.parse(params.body).id;
   let name = JSON.parse(params.body).name;
-  posData = posData.map((item, index) => {
-    if (index === editId) {
+  posData = posData.map((item) => {
+    if (item.id === editId) {
       return { ...item, name };
     }
     return item;
@@ -107,5 +109,138 @@ const editPos = function(params) {
     message: "编辑成功",
   };
 };
+// TODO:等级管理
 
-export { addPos, getAllPos, deletePos, editPos, deleteAllPos };
+let jobLevelsData = [
+  {
+    id: 10000,
+    name: "教授",
+    titleLevel: "正高级",
+    createData: "2021-10-20",
+    enable: true,
+  },
+  {
+    id: 10020,
+    name: "副教授",
+    titleLevel: "副高级",
+    createData: "2021-10-20",
+    enable: true,
+  },
+  {
+    id: 10030,
+    name: "助教",
+    titleLevel: "初级",
+    createData: "2021-10-20",
+    enable: false,
+  },
+  {
+    id: 10090,
+    name: "讲师",
+    titleLevel: "中级",
+    createData: "2021-10-20",
+    enable: true,
+  },
+  {
+    id: 10070,
+    name: "初级工程师",
+    titleLevel: "初级",
+    createData: "2021-10-20",
+    enable: true,
+  },
+];
+//获取所有职称
+const getJobLevels = function() {
+  return {
+    code: 200,
+    success: true,
+    message: "获取成功",
+    data: jobLevelsData,
+  };
+};
+//添加职称
+let jobName, titleLevel, jobId;
+const addJobLevels = function(params) {
+  console.log(params);
+  jobName = JSON.parse(params.body).name;
+  titleLevel = JSON.parse(params.body).titleLevel;
+  jobId = Math.floor((Math.random() + 104) * 100);
+  jobLevelsData = [
+    ...jobLevelsData,
+    {
+      name: jobName,
+      titleLevel,
+      id: jobId,
+      createData: moment().format("YYYY-MM-DD"),
+      enable: true,
+    },
+  ];
+  return {
+    code: 200,
+    success: true,
+    message: "添加成功",
+  };
+};
+
+//删除单个职称
+
+const deleteJobLevel = function(params) {
+  let deleteId = JSON.parse(params.body).id;
+  jobLevelsData = jobLevelsData
+    .map((item) => (item.id !== deleteId ? item : null))
+    .filter((i) => i !== null);
+  return {
+    code: 200,
+    success: true,
+    message: "删除成功",
+  };
+};
+
+//编辑单个职位等级
+
+const editJobLevel = function(params) {
+  let editId = JSON.parse(params.body).id;
+  let name = JSON.parse(params.body).name;
+  let titleLevel = JSON.parse(params.body).titleLevel;
+  let enable = JSON.parse(params.body).enable;
+
+  jobLevelsData = jobLevelsData.map((item) => {
+    if (item.id === editId) {
+      return { ...item, name, titleLevel, enable };
+    }
+    return item;
+  });
+
+  return {
+    code: 200,
+    success: true,
+    message: "编辑成功",
+  };
+};
+//批量删除等级
+
+const deleteJobLevels = function(params) {
+  let idArr = JSON.parse(params.body).idArr.map((item) => item.id);
+
+  //+根据勾选id批量删除
+  jobLevelsData = jobLevelsData
+    .map((item) => (idArr.includes(item.id) ? null : item))
+    .filter((item) => item !== null);
+  return {
+    code: 200,
+    success: true,
+    message: "批量删除成功",
+  };
+};
+
+export {
+  addPos,
+  getAllPos,
+  deletePos,
+  editPos,
+  deleteAllPos,
+  getJobLevels,
+  addJobLevels,
+  deleteJobLevel,
+  editJobLevel,
+  deleteJobLevels,
+};

@@ -117,11 +117,11 @@ export default {
           }
         })
       },
-      handleEdit(index,data){
+      handleEdit(_,data){
         this.dialogVisible = true
         //!放置修改原数据
         this.updatePos = Object.assign({},data)
-        this.currentId = index
+        this.currentId = data.id
 
       },
       updateInfo(){
