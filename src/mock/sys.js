@@ -3,31 +3,31 @@ import moment from "moment";
 
 let posData = [
   {
-    id: 1,
+    id: 10000,
     name: "技术总监",
     createData: "2021-10-20",
     enable: true,
   },
   {
-    id: 2,
+    id: 10100,
     name: "运营总监",
     createData: "2021-10-21",
     enable: true,
   },
   {
-    id: 3,
+    id: 10200,
     name: "市场总监",
     createData: "2021-10-23",
     enable: true,
   },
   {
-    id: 4,
+    id: 10300,
     name: "研发工程师",
     createData: "2021-10-25",
     enable: true,
   },
   {
-    id: 5,
+    id: 10400,
     name: "运维工程师",
     createData: "2021-10-29",
     enable: true,
@@ -37,7 +37,7 @@ let name, id;
 
 const addPos = function(params) {
   name = JSON.parse(params.body).name;
-  id = posData[posData.length - 1].id + 1;
+  id = Math.floor((Math.random() + 104) * 100);
   posData = [
     ...posData,
     { name, id, createData: moment().format("YYYY-MM-DD"), enable: true },
@@ -70,7 +70,6 @@ const deletePos = function(params) {
     code: 200,
     success: true,
     message: "删除成功",
-    data: posData,
   };
 };
 //批量删除职位
@@ -87,7 +86,6 @@ const deleteAllPos = function(params) {
     code: 200,
     success: true,
     message: "批量删除成功",
-    data: posData,
   };
 };
 
