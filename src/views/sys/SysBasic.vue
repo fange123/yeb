@@ -9,10 +9,10 @@
     <el-tab-pane label="职称管理" name="JobLebelManageVue">
       <JobLebelManageVue/>
     </el-tab-pane>
-    <el-tab-pane label="奖惩规则" name="fourth">
+    <el-tab-pane label="奖惩规则" name="EcManageVue">
       <EcManageVue/>
     </el-tab-pane>
-    <el-tab-pane label="权限组" name="EcManageVue">
+    <el-tab-pane label="权限组" name="PermissManageVue">
       <PermissManageVue/>
     </el-tab-pane>
   </el-tabs>
@@ -32,7 +32,7 @@ export default {
     },
     data() {
         return {
-          activeName:'JobLebelManageVue'
+          activeName:'PermissManageVue'
 
         };
     },
