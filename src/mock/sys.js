@@ -232,6 +232,181 @@ const deleteJobLevels = function(params) {
   };
 };
 
+//TODO:权限组管理
+let permissionData = [
+  {
+    id: 10001,
+    name: "ROLE_manager",
+    nameZh: "部门经理",
+  },
+  {
+    id: 10011,
+    name: "ROLE_personnel",
+    nameZh: "人事专员",
+  },
+  {
+    id: 10020,
+    name: "ROLE_recruiter",
+    nameZh: "招聘主管",
+  },
+  {
+    id: 10031,
+    name: "ROLE_train",
+    nameZh: "培训主管",
+  },
+  {
+    id: 10010,
+    name: "ROLE_performance",
+    nameZh: "薪酬绩效主管",
+  },
+  {
+    id: 10021,
+    name: "ROLE_admin",
+    nameZh: "系统管理员",
+  },
+];
+const getPermission = function() {
+  return {
+    code: 200,
+    success: true,
+    message: "查询成功",
+    data: permissionData,
+  };
+};
+
+//获取权限菜单
+const getPerMenu = function() {
+  return {
+    data: [
+      {
+        id: 1,
+        name: "所有",
+        children: [
+          {
+            name: "员工资料",
+            id: 2,
+            children: [
+              { id: 3, name: "高级资料" },
+              {
+                id: 4,
+                name: "基本资料",
+              },
+            ],
+          },
+          {
+            name: "人事管理",
+            id: 5,
+            children: [
+              {
+                id: 6,
+                name: "员工奖惩",
+              },
+              {
+                id: 7,
+                name: "员工资料",
+              },
+              {
+                id: 8,
+                name: "员工调动",
+              },
+              {
+                id: 9,
+                name: "员工调薪",
+              },
+              {
+                id: 10,
+                name: "员工培训",
+              },
+            ],
+          },
+          {
+            name: "薪资管理",
+            id: 11,
+            children: [
+              {
+                name: "月末处理",
+                id: 12,
+              },
+              {
+                name: "工资查询",
+                id: 13,
+              },
+              {
+                name: "工资帐套管理",
+                id: 14,
+              },
+              {
+                name: "员工帐套设置",
+                id: 15,
+              },
+              {
+                name: "工资表管理",
+                id: 16,
+              },
+            ],
+          },
+          {
+            name: "统计管理",
+            id: 17,
+            children: [
+              {
+                name: "综合信息统计",
+                id: 18,
+              },
+              {
+                name: "人事信息统计",
+                id: 19,
+              },
+              {
+                name: "人事记录统计",
+                id: 20,
+              },
+              {
+                name: "员工积分统计",
+                id: 21,
+              },
+            ],
+          },
+          {
+            name: "系统管理",
+            id: 22,
+            children: [
+              {
+                name: "操作员管理",
+                id: 23,
+              },
+              {
+                name: "基础信息设置",
+                id: 24,
+              },
+              {
+                name: "基础设置",
+                id: 25,
+              },
+              {
+                name: "备份获取数据库",
+                id: 26,
+              },
+              {
+                name: "初始化据库",
+                id: 27,
+              },
+              {
+                name: "操作日志管理",
+                id: 28,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+
+    code: 200,
+    success: true,
+    message: "操作成功",
+  };
+};
+
 export {
   addPos,
   getAllPos,
@@ -243,4 +418,6 @@ export {
   deleteJobLevel,
   editJobLevel,
   deleteJobLevels,
+  getPermission,
+  getPerMenu,
 };

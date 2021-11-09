@@ -14,6 +14,8 @@ import {
   deleteJobLevel,
   editJobLevel,
   deleteJobLevels,
+  getPermission,
+  getPerMenu,
 } from "./mock/sys";
 
 //获取验证码
@@ -253,3 +255,6 @@ Mock.mock("/api/system/basic/jobLevels", getJobLevels);
 Mock.mock("/api/system/basic/jobLevels/delete", "post", deleteJobLevel);
 Mock.mock("/api/system/basic/jobLevels/edit", "put", editJobLevel);
 Mock.mock("/api/system/basic/jobLevels/all/delete", "post", deleteJobLevels);
+
+Mock.mock("/api/system/basic/permission", getPermission);
+Mock.mock("/api/system/basic/permission/menus", getPerMenu);
