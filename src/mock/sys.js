@@ -406,6 +406,58 @@ const getPerMenu = function() {
     message: "操作成功",
   };
 };
+//根据id获取权限
+
+/**
+ * 生成一个从 start 到 end 的连续数组
+ * @param start
+ * @param end
+ */
+function generateArray(start, end) {
+  return Array.from(new Array(end + 1).keys()).slice(start);
+}
+
+const getPerById = function(params) {
+  const id = JSON.parse(params.body).rid;
+  let idArr = [];
+  switch (id) {
+    case 10001:
+      idArr = generateArray(1, 28);
+      break;
+    case 10011:
+      idArr = generateArray(6, 10);
+      break;
+    case 10020:
+      idArr = generateArray(3, 16);
+      break;
+    case 10031:
+      idArr = [2, 3, 4, 10];
+      break;
+    case 10010:
+      idArr = generateArray(12, 16);
+      break;
+    case 10021:
+      idArr = generateArray(23, 28);
+      break;
+
+    default:
+      break;
+  }
+  return {
+    code: 200,
+    success: true,
+    message: "操作成功",
+    data: idArr,
+  };
+};
+
+const editPermission = function() {
+  return {
+    code: 200,
+    success: true,
+    message: "修改成功",
+  };
+};
 
 export {
   addPos,
@@ -420,4 +472,6 @@ export {
   deleteJobLevels,
   getPermission,
   getPerMenu,
+  getPerById,
+  editPermission,
 };

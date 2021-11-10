@@ -10,14 +10,19 @@
       </div>
       <div class='main'>
         <el-collapse v-model="activeName" accordion @change='change'>
-          <el-collapse-item :title="item.nameZh" :name="item.id" v-for='item in roles' :key='item.id'>
+          <el-collapse-item :title="item.nameZh" :name="item.id" v-for='(item,index) in roles' :key='item.id'>
            <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span>可访问资源</span>
                 <el-button style="float: right;color:#f00; padding: 3px 0"  icon="el-icon-delete" type='text'></el-button>
               </div>
               <div>
-                <el-tree :data="allMenus" show-checkbox :props="defaultProps" ></el-tree>
+                <el-tree ref="tree" :data="allMenus" show-checkbox :props="defaultProps" node-key="id"
+  :default-checked-keys="selectMenus"></el-tree>
+              </div>
+              <div class='btn'>
+                <el-button size="mini" @click='handleCancel()'>取消修改</el-button>
+                <el-button type="primary" size="mini" @click='handleEdit(item.id,index)'>确认修改</el-button>
               </div>
             </el-card>
           </el-collapse-item>
@@ -39,13 +44,14 @@ export default {
             name:'',
             nameZh:''
           },
-          activeName:'2',
+          activeName:'',
           roles:[],
            defaultProps: {
             children: 'children',
             label: 'name'
           },
-          allMenus:[]
+          allMenus:[],
+          selectMenus:[]
 
         };
     },
@@ -63,7 +69,29 @@ export default {
 
     },
     methods: {
+      handleEdit(id,index){
+         //TODO:这个功能mock不了
+        this.putRequest('/api/system/basic/permission',{keys:this.$refs.tree[index].getCheckedNodes(true)}).then(res=> {
+          if(res.success){
+            this.$message.success(res.message)
+            this.activeName = -1
+
+          }
+        })
+
+      },
+      handleCancel(){
+        this.activeName = -1
+      },
       addPermission(){},
+      getSelectMenus(rid){
+        this.getRequest('/api/system/basic/permission/select',{rid}).then(res=> {
+          if(res.data){
+            this.selectMenus = res.data
+          }
+
+        })
+      },
       getPermission(){
         this.getRequest('/api/system/basic/permission').then(res=> {
           if(res.data){
@@ -75,6 +103,7 @@ export default {
       change(rid){
         if(rid){
          this.getPerMenus()
+         this.getSelectMenus(rid)
 
         }
       },
@@ -105,6 +134,11 @@ export default {
 .main {
   width:720px;
   margin-top:20px
+}
+.btn {
+  margin-top:10px;
+  display:flex;
+  justify-content:flex-end;
 }
 
 </style>
