@@ -416,10 +416,10 @@ const getPerMenu = function() {
 function generateArray(start, end) {
   return Array.from(new Array(end + 1).keys()).slice(start);
 }
-
+let idArr = [];
 const getPerById = function(params) {
   const id = JSON.parse(params.body).rid;
-  let idArr = [];
+
   switch (id) {
     case 10001:
       idArr = generateArray(1, 28);
@@ -451,11 +451,45 @@ const getPerById = function(params) {
   };
 };
 
-const editPermission = function() {
+const editPermission = function(params) {
+  const keys = JSON.parse(params.body).keys;
+  idArr = keys;
   return {
     code: 200,
     success: true,
     message: "修改成功",
+  };
+};
+const addPermission = function(params) {
+  const name = JSON.parse(params.body).name;
+  const nameZh = JSON.parse(params.body).nameZh;
+  const id = Math.floor((Math.random() + 104) * 100);
+  permissionData = [
+    ...permissionData,
+    {
+      name,
+      nameZh,
+      id,
+    },
+  ];
+  return {
+    code: 200,
+    success: true,
+    message: "添加成功",
+  };
+};
+
+//删除权限
+
+const deletePermission = function(params) {
+  let deleteId = JSON.parse(params.body).id;
+  permissionData = permissionData
+    .map((item) => (item.id !== deleteId ? item : null))
+    .filter((i) => i !== null);
+  return {
+    code: 200,
+    success: true,
+    message: "删除成功",
   };
 };
 
@@ -474,4 +508,6 @@ export {
   getPerMenu,
   getPerById,
   editPermission,
+  addPermission,
+  deletePermission,
 };

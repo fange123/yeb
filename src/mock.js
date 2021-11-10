@@ -18,6 +18,8 @@ import {
   getPerMenu,
   getPerById,
   editPermission,
+  addPermission,
+  deletePermission,
 } from "./mock/sys";
 
 //获取验证码
@@ -259,6 +261,8 @@ Mock.mock("/api/system/basic/jobLevels/edit", "put", editJobLevel);
 Mock.mock("/api/system/basic/jobLevels/all/delete", "post", deleteJobLevels);
 
 Mock.mock("/api/system/basic/permission", "put", editPermission);
+Mock.mock("/api/system/basic/permission", "post", addPermission);
+Mock.mock("/api/system/basic/permission", "delete", deletePermission);
 Mock.mock("/api/system/basic/permission", getPermission);
 Mock.mock("/api/system/basic/permission/menus", getPerMenu);
 Mock.mock("/api/system/basic/permission/select", getPerById);
