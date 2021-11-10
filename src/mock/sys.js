@@ -493,6 +493,75 @@ const deletePermission = function(params) {
   };
 };
 
+//TODO:部门管理
+
+let depsData = [
+  {
+    id: 1,
+    name: "股东会",
+    children: [
+      {
+        id: 2,
+        name: "董事会",
+        children: [
+          {
+            id: 3,
+            name: "总办",
+            children: [
+              {
+                id: 4,
+                name: "财务部",
+              },
+              {
+                id: 5,
+                name: "市场部",
+                children: [
+                  {
+                    id: 6,
+                    name: "华东市场部",
+                  },
+                  {
+                    id: 7,
+                    name: "华南市场部",
+                  },
+                  {
+                    id: 8,
+                    name: "西北市场部",
+                    children: [
+                      {
+                        id: 9,
+                        name: "甘肃市场部",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                id: 10,
+                name: "技术部",
+              },
+              {
+                id: 11,
+                name: "运维部",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
+//获取所有部门
+const getAllDeps = function() {
+  return {
+    code: 200,
+    success: true,
+    message: "获取成功",
+    data: depsData,
+  };
+};
+
 export {
   addPos,
   getAllPos,
@@ -510,4 +579,5 @@ export {
   editPermission,
   addPermission,
   deletePermission,
+  getAllDeps,
 };

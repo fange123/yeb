@@ -20,6 +20,7 @@ import {
   editPermission,
   addPermission,
   deletePermission,
+  getAllDeps,
 } from "./mock/sys";
 
 //获取验证码
@@ -266,3 +267,5 @@ Mock.mock("/api/system/basic/permission", "delete", deletePermission);
 Mock.mock("/api/system/basic/permission", getPermission);
 Mock.mock("/api/system/basic/permission/menus", getPerMenu);
 Mock.mock("/api/system/basic/permission/select", getPerById);
+
+Mock.mock("/api/system/basic/deps", getAllDeps);

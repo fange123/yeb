@@ -32,7 +32,7 @@ export default {
     },
     data() {
         return {
-          activeName:'PermissManageVue'
+          activeName:'DepManageVue'
 
         };
     },
