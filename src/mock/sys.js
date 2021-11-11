@@ -503,34 +503,42 @@ let depsData = [
       {
         id: 2,
         name: "董事会",
+        parentId: 1,
         children: [
           {
             id: 3,
             name: "总办",
+            parentId: 2,
             children: [
               {
                 id: 4,
                 name: "财务部",
+                parentId: 3,
               },
               {
                 id: 5,
                 name: "市场部",
+                parentId: 3,
                 children: [
                   {
                     id: 6,
                     name: "华东市场部",
+                    parentId: 5,
                   },
                   {
                     id: 7,
                     name: "华南市场部",
+                    parentId: 5,
                   },
                   {
                     id: 8,
                     name: "西北市场部",
+                    parentId: 5,
                     children: [
                       {
                         id: 9,
                         name: "甘肃市场部",
+                        parentId: 8,
                       },
                     ],
                   },
@@ -539,10 +547,12 @@ let depsData = [
               {
                 id: 10,
                 name: "技术部",
+                parentId: 3,
               },
               {
                 id: 11,
                 name: "运维部",
+                parentId: 3,
               },
             ],
           },
@@ -559,6 +569,34 @@ const getAllDeps = function() {
     success: true,
     message: "获取成功",
     data: depsData,
+  };
+};
+//添加子部门
+const addNodeDeps = function(params) {
+  const name = JSON.parse(params.body).name;
+  const parentId = JSON.parse(params.body).parentId;
+  if (parentId) {
+    function deps(data) {
+      for (const child of data) {
+        if (child.id === parentId) {
+          child.children.push({
+            id: Math.floor((Math.random() + 104) * 100),
+            name,
+            parentId,
+          });
+          return;
+        }
+        if (child.children) {
+          deps(child.children);
+        }
+      }
+    }
+    deps(depsData);
+  }
+  return {
+    code: 200,
+    success: true,
+    message: "添加成功",
   };
 };
 
@@ -580,4 +618,5 @@ export {
   addPermission,
   deletePermission,
   getAllDeps,
+  addNodeDeps,
 };

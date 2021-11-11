@@ -21,6 +21,7 @@ import {
   addPermission,
   deletePermission,
   getAllDeps,
+  addNodeDeps,
 } from "./mock/sys";
 
 //获取验证码
@@ -268,4 +269,5 @@ Mock.mock("/api/system/basic/permission", getPermission);
 Mock.mock("/api/system/basic/permission/menus", getPerMenu);
 Mock.mock("/api/system/basic/permission/select", getPerById);
 
+Mock.mock("/api/system/basic/deps", "post", addNodeDeps);
 Mock.mock("/api/system/basic/deps", getAllDeps);
