@@ -22,6 +22,9 @@ import {
   deletePermission,
   getAllDeps,
   addNodeDeps,
+  getAllRoles,
+  deleteAdmin,
+  getAdminSelect,
 } from "./mock/sys";
 
 //获取验证码
@@ -271,3 +274,7 @@ Mock.mock("/api/system/basic/permission/select", getPerById);
 
 Mock.mock("/api/system/basic/deps", "post", addNodeDeps);
 Mock.mock("/api/system/basic/deps", getAllDeps);
+
+Mock.mock("/api/system/admin", "delete", deleteAdmin);
+Mock.mock("/api/system/admin", getAllRoles);
+Mock.mock("/api/system/admin/select", getAdminSelect);

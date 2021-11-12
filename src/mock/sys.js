@@ -1,4 +1,7 @@
 import moment from "moment";
+import girlPng from "../assets/girl.jpeg";
+import catPng from "../assets/cat.jpeg";
+import hariPng from "../assets/hair.jpeg";
 
 //TODO:职位管理
 //添加职位
@@ -600,6 +603,128 @@ const addNodeDeps = function(params) {
   };
 };
 
+//TODO:操作员
+
+let adminData = [
+  {
+    id: 1,
+    name: "张海玉",
+    phone: "18943007999",
+    telephone: "38976567",
+    address: "中国（亚洲和太平洋地区）",
+    remark: "哈哈",
+    url: girlPng,
+    role: [
+      {
+        value: "部门经理",
+        id: 1,
+      },
+      {
+        value: "招聘主管",
+        id: 3,
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "肖战",
+    phone: "18943007999",
+    telephone: "38976567",
+    address:
+      "中国天津自貿試驗區（東疆保稅港區）亞洲路6975號金融貿易中心南區1-1-815",
+    remark: "肖战",
+    url: hariPng,
+    role: [
+      {
+        value: "薪酬绩效主管",
+        id: 5,
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "王一博",
+    phone: "18943007999",
+    telephone: "38976567",
+    address: "中国北京市朝阳区高碑店西店610号自空间CBD写字园B座B3",
+    remark: "王一博",
+    url: catPng,
+    role: [
+      {
+        value: "培训主管",
+        id: 4,
+      },
+      {
+        value: "人事专员",
+        id: 2,
+      },
+    ],
+  },
+];
+
+//获取操作员信息
+const getAllRoles = function(params) {
+  const name = JSON.parse(params.body)?.username;
+  if (name) {
+    adminData = adminData.filter((item) => item.name.includes(name));
+  }
+  return {
+    code: 200,
+    success: true,
+    message: "获取成功",
+    data: adminData,
+  };
+};
+
+//删除操作员
+
+const deleteAdmin = function(params) {
+  let deleteId = JSON.parse(params.body).id;
+  adminData = adminData
+    .map((item) => (item.id !== deleteId ? item : null))
+    .filter((i) => i !== null);
+  return {
+    code: 200,
+    success: true,
+    message: "删除成功",
+  };
+};
+//获取角色
+let selectData = [
+  {
+    id: 1,
+    name: "部门经理",
+  },
+  {
+    id: 2,
+    name: "人事专员",
+  },
+  {
+    id: 3,
+    name: "招聘主管",
+  },
+  {
+    id: 4,
+    name: "培训主管",
+  },
+  {
+    id: 5,
+    name: "薪酬绩效主管",
+  },
+  {
+    id: 6,
+    name: "系统管理员",
+  },
+];
+const getAdminSelect = () => {
+  return {
+    code: 200,
+    success: true,
+    message: "获取成功",
+    data: selectData,
+  };
+};
+
 export {
   addPos,
   getAllPos,
@@ -619,4 +744,7 @@ export {
   deletePermission,
   getAllDeps,
   addNodeDeps,
+  getAllRoles,
+  deleteAdmin,
+  getAdminSelect,
 };
